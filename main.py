@@ -19,15 +19,14 @@ mega = Mega()
 m = mega.login(email,password)
 
 #NHK番組をダウンロードする。
-#この中でmegaに無いaudioファイルをダウンロードする仕組みとしている。
-nhk_audo_download(m,"nhk_downloader.txt")
+#megaに無いaudioファイルをダウンロードする仕組みとしている。
 
-#audioフォルダ配下のaudioファイルを全件リスト取得する。
-files = glob.glob("./audio/*.mp3")
-
-#megaへuploadする
-for file in files:
-    upload_audio(m,file)
+with open("nhk_downloader.txt") as f:
+    urls = f.readlines()
+    for audio_url in urls:
+        file_name = nhk_audo_download(m,audio_url)
+        if len(file_name) > 0:
+            download_url = upload_audio(m,file_name)
 
 #最後にaudio配下の全てのファイルを削除する。
 target_dir = './audio/'
