@@ -1,15 +1,16 @@
 import os
+import glob
 
-def upload_audio(mega,file_name:str) -> str:
+def upload_audio(mega,file_name:str) -> list:
 
+    fileURLList = []
     pwd = os.getcwd()
-    fileName_pass = pwd +'/audio/'+ file_name
-    file = mega.upload(fileName_pass)
     
-    return mega.get_upload_link(file)
+    fileName_pass = pwd +'/audio/'+ file_name
+    print(fileName_pass)
 
-if __name__ == "__main__":
-
-    pwd = os.getcwd()
-    fileName_pass = pwd + r"/20240406_上方演芸会　選　▽チキチキジョニー／浮世亭三吾・美ユル.mp3"
-    url = upload_audio(fileName_pass)
+    if mega.find(file_name) == None:
+        file = mega.upload(fileName_pass)
+        fileURLList.append(mega.get_upload_link(file))
+    
+    return fileURLList
