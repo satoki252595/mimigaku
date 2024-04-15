@@ -32,6 +32,7 @@ notion = Client(auth=NOTION_TOKEN)
 #NHK番組をダウンロードする。
 #megaに無いaudioファイルをaudioフォルダ配下にダウンロードする仕組みとしている。
 
+#nhk_downloader.txt内にダウンロードしたい番組をaudio_urlを定義。
 with open("nhk_downloader.txt") as f:
 
     #自分の聴きたいラジオデータのjson URLを取得
@@ -40,11 +41,12 @@ with open("nhk_downloader.txt") as f:
         
         #該当番組のダウンロードを実施。
         file_info_list = nhk_audo_download(m,audio_url)
+        #ダウンロード番組が1件でもあれば、mega上へアップロードする。
         if len(file_info_list) > 0:
             for file_info in file_info_list:
                 download_url = upload_audio(m,file_info['file_name'])[0]
                 
-                #notionへアップロードする処理を入れる。
+                #アップロードが完了すれば、notionへも各種情報をアップロードする。
                 radio_date = file_info['date']
                 radio_name_select = file_info['program_title']
                 radio_name = radio_date +r'-'+ radio_name_select
