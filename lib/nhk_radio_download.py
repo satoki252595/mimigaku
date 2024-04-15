@@ -1,24 +1,42 @@
 import requests
 import os
+import configparser
 
+from mega import Mega
 
 def nhk_audo_download(mega,audio_url) -> list:
+    
+    '''
+    ■INPUT
+    ・mega     :megaへアクセスするためのインスタンス。
+    ・audio_url:NHKの聞き逃しラジオ情報データを保持するJsonデータ。NHKより提供されている。
+    
+    ■OUTPUT
+    ・file_info_list(list型)
+        ・'date':ラジオ放送日,
+        ・'program_title':ラジオ番組名,
+        ・'file_name':audioファイル名
+    で構成されているリスト。１週間分のラジオ番組情報を格納。
+    '''
 
+    #URL両端の不要な改行コードなどを削除
     audio_url = audio_url.strip()
     
     #returnの初期値
     file_name = ''
     file_info_list =[]
 
+    #audio_urlが存在しなければ、ダウンロードはできないのでif文で分岐を行う。
     if audio_url == '':
         print("URLなし")
         
+
     else:
         resp = requests.get(audio_url)
         js = resp.json()
         program_title = js['main']['program_name']
             
-        # 音声ファイルダウンロード
+        # 音声ファイルダウンロード。audio_url上に定義されている情報を変数として保持。return文で辞書型リスト形式で返す。
         for d1 in js['main']['detail_list']:
             for d2 in d1['file_list']:
 
@@ -48,8 +66,18 @@ def nhk_audo_download(mega,audio_url) -> list:
                 
     return file_info_list
 
-if __name__ == '__main_':
-    mega =''
+if __name__ == '__main__':
+    
+    #設定ファイルの読み込み
+    config_ini = configparser.ConfigParser()
+    config_ini.read('config.ini', encoding='utf-8')
+    #megaへアクセスするインスタンスを作成する
+    email = config_ini['mega_account']['mail']
+    password = config_ini['mega_account']['pw']
+
+    mega = Mega()
+    m = mega.login(email,password)
+
     audio_url = 'https://www.nhk.or.jp/radioondemand/json/0045/bangumi_0045_01.json'
-    nhk_audo_download(mega,audio_url)
+    nhk_audo_download(m,audio_url)
             
