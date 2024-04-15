@@ -35,11 +35,9 @@ def nhk_audo_download(mega,audio_url) -> list:
                         
                         file_info_list.append(
                             {
-                                'file_name':file_name,
                                 'date':date,
-                                'file_url':file_url,
-                                'title':title,
-                                'program_title':program_title
+                                'program_title':program_title,
+                                'file_name':file_name
                                 
                                 }
                             )
@@ -49,4 +47,9 @@ def nhk_audo_download(mega,audio_url) -> list:
 
                 
     return file_info_list
+
+if __name__ == '__main_':
+    mega =''
+    audio_url = 'https://www.nhk.or.jp/radioondemand/json/0045/bangumi_0045_01.json'
+    nhk_audo_download(mega,audio_url)
             

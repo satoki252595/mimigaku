@@ -38,7 +38,7 @@ with open("nhk_downloader.txt") as f:
     urls = f.readlines()    
     for audio_url in urls:
         
-        #該当番組のダウンロードを実施。戻り値は１週間分のラジオ番組名リスト
+        #該当番組のダウンロードを実施。
         file_info_list = nhk_audo_download(m,audio_url)
         if len(file_info_list) > 0:
             for file_info in file_info_list:

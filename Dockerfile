@@ -12,5 +12,5 @@ RUN apt-get -y install ffmpeg
 
 RUN apt install python3-pip -y
 RUN pip install mega.py
-RUN pip install notion-database
+RUN pip install notion-client
 
