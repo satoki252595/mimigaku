@@ -8,7 +8,7 @@ def nhk_audo_download(mega,audio_url) -> list:
     
     #returnの初期値
     file_name = ''
-    file_name_list =[]
+    file_info_list =[]
 
     if audio_url == '':
         print("URLなし")
@@ -26,18 +26,27 @@ def nhk_audo_download(mega,audio_url) -> list:
                     title = d2['file_title']
                     date = d2['aa_vinfo3'][0:8]
                     file_name = date +"_" +title + r'.mp3'
-                    file = d2['file_name']
+                    file_url = d2['file_name']
 
                     #megaの中にファイルがなければダウンロードする
                     if mega.find(file_name) == None:
-                        cmd = f'ffmpeg -y -vn -v verbose -http_seekable 0 -i "{file}" -id3v2_version 3 -metadata artist="NHK" -metadata title="{date}" -metadata album="{program_title}" -metadata date="2022" -metadata track="236" -ab 48k -ar 24000 -ac 1 "./audio/{file_name}"'
+                        cmd = f'ffmpeg -y -vn -v verbose -http_seekable 0 -i "{file_url}" -id3v2_version 3 -metadata artist="NHK" -metadata title="{date}" -metadata album="{program_title}" -metadata date="2022" -metadata track="236" -ab 48k -ar 24000 -ac 1 "./audio/{file_name}"'
                         os.system(cmd)
                         
-                        file_name_list.append(file_name)
+                        file_info_list.append(
+                            {
+                                'file_name':file_name,
+                                'date':date,
+                                'file_url':file_url,
+                                'title':title,
+                                'program_title':program_title
+                                
+                                }
+                            )
                         
                 except:
                     print('titleなどが取得できない可能性があります。')
 
                 
-    return file_name_list
+    return file_info_list
             

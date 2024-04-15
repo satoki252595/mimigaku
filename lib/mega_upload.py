@@ -7,7 +7,6 @@ def upload_audio(mega,file_name:str) -> list:
     pwd = os.getcwd()
     
     fileName_pass = pwd +'/audio/'+ file_name
-    print(fileName_pass)
 
     if mega.find(file_name) == None:
         file = mega.upload(fileName_pass)
