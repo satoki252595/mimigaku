@@ -30,7 +30,7 @@ notion = Client(auth=NOTION_TOKEN)
 
 
 #NHK番組をダウンロードする。
-#megaに無いaudioファイルをダウンロードする仕組みとしている。
+#megaに無いaudioファイルをaudioフォルダ配下にダウンロードする仕組みとしている。
 
 with open("nhk_downloader.txt") as f:
 
@@ -52,8 +52,7 @@ with open("nhk_downloader.txt") as f:
                 
 
 #最後にaudio配下の全てのファイルを削除する。
-target_dir = './audio/'
-shutil.rmtree(target_dir)
-os.mkdir(target_dir)
+shutil.rmtree('./audio/')
+os.mkdir('./audio/')
     
 
