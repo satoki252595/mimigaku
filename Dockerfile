@@ -9,8 +9,11 @@ RUN ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
 # install app
 RUN apt-get install git -y
 RUN apt-get -y install ffmpeg
+RUN apt install -y cron
+RUN apt install -y vim
 
+#ラズパイの場合、ubuntu上でinstallエラーとなる場合がある。
+#無理やりinstallするため--break-system-packagesのオプションをつける。（ちゃんと稼働します）
 RUN apt install python3-pip -y
-RUN pip install mega.py
-RUN pip install notion-client
-
+RUN pip install --break-system-packages mega.py
+RUN pip install --break-system-packages notion-client

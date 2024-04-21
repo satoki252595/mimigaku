@@ -1,11 +1,17 @@
-import os
 import configparser
-import datetime
 
 from notion_client import Client
 
-
 def add_record(notion,database_id,radio_name, download_url, radio_date, radio_name_select):
+    '''
+    ■INPUT
+    ・notion           :notionへアクセスするためのクライアントインスタンス。main関数で定義
+    ・database_id      :notion上へアップロードするdatabase_id
+    ・radio_name       :放送日＋ラジオ番組名称
+    ・download_url     :mega上のダウンロードURL
+    ・radio_date       :放送日
+    ・radio_name_select:ラジオ番組名称
+    '''
     
     data = {
         "parent": { "database_id": database_id },
@@ -34,10 +40,8 @@ def add_record(notion,database_id,radio_name, download_url, radio_date, radio_na
         }
     }
     
-
     # レコードを追加
     notion.pages.create(**data)
-
 
 
 if __name__ == '__main__':
