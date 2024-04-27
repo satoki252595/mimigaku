@@ -8,7 +8,7 @@ import (
 )
 
 func WriteFile(selectNhkRadioList []model.NhkRadio) {
-	f, _ := os.Create("../test_nhk_downloader.txt")
+	f, _ := os.Create("../nhk_downloader.txt")
 	defer f.Close()
 
 	for _, nhk := range selectNhkRadioList {
@@ -23,12 +23,12 @@ func WriteFile(selectNhkRadioList []model.NhkRadio) {
 
 			data := []byte(nhk.DetailJSON + "\n")
 
-			count, err := f.Write(data) // buf to writer
+			_, err := f.Write(data) // buf to writer
 			if err != nil {
 				fmt.Println(err)
 				return
 			}
-			fmt.Printf("write %d bytes\n", count)
+
 		}
 
 	}

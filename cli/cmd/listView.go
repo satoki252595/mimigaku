@@ -13,6 +13,7 @@ import (
 
 	"github.com/charmbracelet/huh"
 	"github.com/spf13/cobra"
+	"golang.org/x/exp/slices"
 )
 
 // listViewCmd represents the listView command
@@ -36,12 +37,24 @@ func run() {
 
 }
 
+func containsFunctionWithSlicesPkg(slice []string, key string) bool {
+	return slices.Contains(slice, key)
+}
+
 func MultipleSelect(nhkRadioList []model.NhkRadio) ([]model.NhkRadio, error) {
 
 	options := make([]huh.Option[model.NhkRadio], 0, len(nhkRadioList))
+	downloadFileList := file.ReadFile()
+	fmt.Println(downloadFileList)
 
 	for _, v := range nhkRadioList {
-		options = append(options, huh.NewOption(v.ProgramName, v))
+		//options = append(options, huh.NewOption(v.ProgramName, v))
+		if containsFunctionWithSlicesPkg(downloadFileList, v.DetailJSON) {
+			options = append(options, huh.NewOption(v.ProgramName, v).Selected(true))
+		} else {
+			options = append(options, huh.NewOption(v.ProgramName, v))
+		}
+
 	}
 
 	selectedRadioList := []model.NhkRadio{}

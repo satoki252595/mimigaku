@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"strings"
 
 	"cli/model"
 )
@@ -26,10 +27,11 @@ func GetNhkRadio() []model.NhkRadio {
 		// json.UnmarshalでJSONデータをGoのオブジェクトに変換する
 		json.Unmarshal(data, &responseObject)
 
-		m := make(map[string]struct{})
+		pattern := "_01.json"
 
 		for _, p := range responseObject.DataList {
-			if _, ok := m[p.SiteID]; !ok {
+			check := strings.HasSuffix(p.DetailJSON, pattern)
+			if check {
 				nhkRadio := model.NhkRadio{
 					SiteID:      p.SiteID,
 					ProgramName: p.ProgramName,
