@@ -1,0 +1,11 @@
+https://www.nhk.or.jp/radioondemand/json/0632/bangumi_0632_01.json
+https://www.nhk.or.jp/radioondemand/json/0083/bangumi_0083_01.json
+https://www.nhk.or.jp/radioondemand/json/8227/bangumi_8227_01.json
+https://www.nhk.or.jp/radioondemand/json/5097/bangumi_5097_01.json
+https://www.nhk.or.jp/radioondemand/json/6809/bangumi_6809_01.json
+https://www.nhk.or.jp/radioondemand/json/7512/bangumi_7512_01.json
+https://www.nhk.or.jp/radioondemand/json/0916/bangumi_0916_01.json
+https://www.nhk.or.jp/radioondemand/json/0446/bangumi_0446_01.json
+https://www.nhk.or.jp/radioondemand/json/8380/bangumi_8380_01.json
+https://www.nhk.or.jp/radioondemand/json/7536/bangumi_7536_01.json
+https://www.nhk.or.jp/radioondemand/json/0045/bangumi_0045_01.json

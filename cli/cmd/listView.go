@@ -20,7 +20,7 @@ import (
 var listViewCmd = &cobra.Command{
 	Use:   "listView",
 	Short: "NHKラジオ番組の一覧を出力するコマンド。",
-	Long:  `NHKラジオ番組の一覧を出力するコマンド。`,
+	Long:  `NHKラジオ番組の一覧を出力するコマンド。選択済みの番組はデフォルトで選択済みとなっています。`,
 	Run: func(cmd *cobra.Command, args []string) {
 		run()
 	},
@@ -80,7 +80,7 @@ func MultipleSelect(nhkRadioList []model.NhkRadio) ([]model.NhkRadio, error) {
 
 func validateMultiSelect(selectedNewsList []model.NhkRadio) error {
 	if len(selectedNewsList) == 0 {
-		return errors.New("1個以上選択して下さい（spaceキーで選択できます）")
+		return errors.New("1個以上選択して下さい")
 	}
 	return nil
 }
