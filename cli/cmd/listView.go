@@ -37,16 +37,12 @@ func run() {
 
 	}
 
-	selectRadio, err := MultipleSelect(nhkRadioList)
+	selectedRadioList, err := MultipleSelect(nhkRadioList)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(selectRadio)
-
-	for k, v := range nhkRadioDict {
-		fmt.Printf("> %s %s \n", k, v)
-	}
+	fmt.Println(selectedRadioList)
 
 }
 
