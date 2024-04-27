@@ -8,6 +8,7 @@ import (
 	"fmt"
 
 	"cli/api"
+	"cli/file"
 	"cli/model"
 
 	"github.com/charmbracelet/huh"
@@ -25,24 +26,13 @@ var listViewCmd = &cobra.Command{
 }
 
 func run() {
-	nhkRadioDict := api.GetUrlDict()
-	var nhkRadioList []model.NhkRadio
-
-	for k, v := range nhkRadioDict {
-		g := model.NhkRadio{
-			SiteID:      k,
-			ProgramName: v,
-		}
-		nhkRadioList = append(nhkRadioList, g)
-
-	}
-
+	nhkRadioList := api.GetNhkRadio()
 	selectedRadioList, err := MultipleSelect(nhkRadioList)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	fmt.Println(selectedRadioList)
+	file.WriteFile(selectedRadioList)
 
 }
 
@@ -84,14 +74,4 @@ func validateMultiSelect(selectedNewsList []model.NhkRadio) error {
 
 func init() {
 	rootCmd.AddCommand(listViewCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// listViewCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// listViewCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

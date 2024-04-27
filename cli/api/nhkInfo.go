@@ -9,9 +9,10 @@ import (
 	"cli/model"
 )
 
-func GetUrlDict() map[string]string {
+func GetNhkRadio() []model.NhkRadio {
 
-	newDict := make(map[string]string)
+	var nhkRadioList []model.NhkRadio
+
 	// http.Getを用いて外部APIを呼び出す
 	resp, err := http.Get("https://www.nhk.or.jp/radioondemand/json/index_v3/index.json")
 	// エラーハンドリング
@@ -29,12 +30,17 @@ func GetUrlDict() map[string]string {
 
 		for _, p := range responseObject.DataList {
 			if _, ok := m[p.SiteID]; !ok {
-				newDict[p.SiteID] = p.ProgramName
+				nhkRadio := model.NhkRadio{
+					SiteID:      p.SiteID,
+					ProgramName: p.ProgramName,
+					DetailJSON:  p.DetailJSON,
+				}
+				nhkRadioList = append(nhkRadioList, nhkRadio)
 			}
 
 		}
 	}
-	return newDict
+	return nhkRadioList
 }
 
 // func GetNhkRadioInfo() model.NhkRadio {
