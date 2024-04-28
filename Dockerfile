@@ -15,6 +15,6 @@ RUN apt install -y vim
 #ラズパイの場合、ubuntu上でinstallエラーとなる場合がある。
 #無理やりinstallするため--break-system-packagesのオプションをつける。（ちゃんと稼働します）
 RUN apt install python3-pip -y
-RUN pip install --break-system-packages mega.py
-RUN pip install --break-system-packages notion-client
+RUN pip install mega.py
+RUN pip install notion-client
 RUN pip install pyinstaller
