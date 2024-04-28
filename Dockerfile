@@ -17,3 +17,4 @@ RUN apt install -y vim
 RUN apt install python3-pip -y
 RUN pip install --break-system-packages mega.py
 RUN pip install --break-system-packages notion-client
+RUN pip install pyinstaller

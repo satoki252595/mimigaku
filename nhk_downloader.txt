@@ -1,3 +1,4 @@
+https://www.nhk.or.jp/radioondemand/json/0058/bangumi_0058_01.json
 https://www.nhk.or.jp/radioondemand/json/0083/bangumi_0083_01.json
 https://www.nhk.or.jp/radioondemand/json/5097/bangumi_5097_01.json
 https://www.nhk.or.jp/radioondemand/json/6809/bangumi_6809_01.json
