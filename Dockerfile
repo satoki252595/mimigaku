@@ -18,3 +18,7 @@ RUN apt install python3-pip -y
 RUN pip install mega.py
 RUN pip install notion-client
 RUN pip install pyinstaller
+
+#ここで/srcフォルダと/src/audioフォルダを作っておく。
+RUN mkdir /src
+RUN mkdir /src/audio

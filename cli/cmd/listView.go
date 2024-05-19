@@ -45,7 +45,6 @@ func MultipleSelect(nhkRadioList []model.NhkRadio) ([]model.NhkRadio, error) {
 
 	options := make([]huh.Option[model.NhkRadio], 0, len(nhkRadioList))
 	downloadFileList := file.ReadFile()
-	fmt.Println(downloadFileList)
 
 	for _, v := range nhkRadioList {
 		//options = append(options, huh.NewOption(v.ProgramName, v))

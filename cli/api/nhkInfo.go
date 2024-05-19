@@ -29,6 +29,8 @@ func GetNhkRadio() []model.NhkRadio {
 
 		pattern := "_01.json"
 
+		//ここで複数番組がある場合は、それを削除するロジックを追加、stringsの中のHasSuffixメソッドを利用する。
+		//_01.json以外のデータを取得するようにcheck関数を実装する。以外は全て削除する。
 		for _, p := range responseObject.DataList {
 			check := strings.HasSuffix(p.DetailJSON, pattern)
 			if check {
