@@ -33,6 +33,7 @@ def nhk_audo_download(mega,audio_url) -> list:
 
     else:
         resp = requests.get(audio_url)
+        print(resp)
         js = resp.json()
         program_title = js['main']['program_name']
             
