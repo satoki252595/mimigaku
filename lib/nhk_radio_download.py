@@ -1,6 +1,7 @@
 import requests
 import os
 import configparser
+import json
 
 from mega import Mega
 
@@ -33,36 +34,35 @@ def nhk_audo_download(mega,audio_url) -> list:
 
     else:
         resp = requests.get(audio_url)
-        print(resp)
         js = resp.json()
-        program_title = js['main']['program_name']
-            
+        program_title = js['title']
+        
         # 音声ファイルダウンロード。audio_url上に定義されている情報を変数として保持。return文で辞書型リスト形式で返す。
-        for d1 in js['main']['detail_list']:
-            for d2 in d1['file_list']:
+        
+        radio_dict = js['episodes'][0]
+        
+        try:
+            title = radio_dict['program_title']
+            date = radio_dict['onair_date']
+            file_name = date +"_" +title + r'.mp3'
+            file_url = radio_dict['stream_url']
 
-                try:
-                    title = d2['file_title']
-                    date = d2['aa_vinfo3'][0:8]
-                    file_name = date +"_" +title + r'.mp3'
-                    file_url = d2['file_name']
-
-                    #megaの中にファイルがなければダウンロードする
-                    if mega.find(file_name) == None:
-                        cmd = f'ffmpeg -y -vn -v verbose -http_seekable 0 -i "{file_url}" -id3v2_version 3 -metadata artist="NHK" -metadata title="{date}" -metadata album="{program_title}" -metadata date="2022" -metadata track="236" -ab 48k -ar 24000 -ac 1 "./audio/{file_name}"'
-                        os.system(cmd)
+            #megaの中にファイルがなければダウンロードする
+            if mega.find(file_name) == None:
+                cmd = f'ffmpeg -y -vn -v verbose -http_seekable 0 -i "{file_url}" -id3v2_version 3 -metadata artist="NHK" -metadata title="{date}" -metadata album="{program_title}" -metadata date="2022" -metadata track="236" -ab 48k -ar 24000 -ac 1 "./audio/{file_name}"'
+                os.system(cmd)
+                
+                file_info_list.append(
+                    {
+                        'date':date,
+                        'program_title':program_title,
+                        'file_name':file_name
                         
-                        file_info_list.append(
-                            {
-                                'date':date,
-                                'program_title':program_title,
-                                'file_name':file_name
-                                
-                                }
-                            )
-                        
-                except:
-                    print('titleなどが取得できない可能性があります。')
+                        }
+                    )
+                
+        except:
+            print('titleなどが取得できない可能性があります。')
 
                 
     return file_info_list

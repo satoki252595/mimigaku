@@ -1,4 +1,4 @@
-https://www.nhk.or.jp/radioondemand/json/0058/bangumi_0058_01.json
-https://www.nhk.or.jp/radioondemand/json/0083/bangumi_0083_01.json
-https://www.nhk.or.jp/radioondemand/json/5097/bangumi_5097_01.json
-https://www.nhk.or.jp/radioondemand/json/6809/bangumi_6809_01.json
+https://www.nhk.or.jp/radio-api/app/v1/web/ondemand/series?site_id=0058&corner_site_id=01
+https://www.nhk.or.jp/radio-api/app/v1/web/ondemand/series?site_id=0083&corner_site_id=01
+https://www.nhk.or.jp/radio-api/app/v1/web/ondemand/series?site_id=5097&corner_site_id=01
+https://www.nhk.or.jp/radio-api/app/v1/web/ondemand/series?site_id=6809&corner_site_id=01
