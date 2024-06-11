@@ -1,9 +1,35 @@
 import requests
 import os
 import configparser
-import json
+import re
+import datetime
 
 from mega import Mega
+
+
+def extract_date(text):
+  """
+  "6月8日(土)午後7:25放送"のような文字列から日付部分を抽出し、yyyymmdd形式に変換する
+
+  Args:
+    text: 抽出対象の文字列
+
+  Returns:
+    yyyymmdd形式の日付文字列。抽出に失敗した場合はNone
+  """
+  
+  today_year = datetime.datetime.now().year
+  
+  
+  pattern = r"(\d+)月(\d+)日"
+  match = re.search(pattern, text)
+  if match:
+    month, day = match.groups()
+    return f"{today_year}{month.zfill(2)}{day.zfill(2)}"
+  else:
+    return None
+
+
 
 def nhk_audo_download(mega,audio_url) -> list:
     
@@ -38,12 +64,12 @@ def nhk_audo_download(mega,audio_url) -> list:
         program_title = js['title']
         
         # 音声ファイルダウンロード。audio_url上に定義されている情報を変数として保持。return文で辞書型リスト形式で返す。
-        
-        radio_dict = js['episodes'][0]
-        
-        try:
+        if len(js['episodes']) == 0:
+          print("今週の放送はありません。")
+        else:
+          for index,radio_dict in enumerate(js['episodes']):
             title = radio_dict['program_title']
-            date = radio_dict['onair_date']
+            date = extract_date(radio_dict['onair_date'])
             file_name = date +"_" +title + r'.mp3'
             file_url = radio_dict['stream_url']
 
@@ -60,9 +86,7 @@ def nhk_audo_download(mega,audio_url) -> list:
                         
                         }
                     )
-                
-        except:
-            print('titleなどが取得できない可能性があります。')
+                  
 
                 
     return file_info_list

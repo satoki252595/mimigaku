@@ -10,6 +10,10 @@ import shutil
 import glob
 import configparser
 
+import ssl
+ssl._create_default_https_context = ssl._create_unverified_context
+
+
 #設定ファイルの読み込み
 config_ini = configparser.ConfigParser()
 config_ini.read('config.ini', encoding='utf-8')
